@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双创基地设备管理系统</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-laptop"></i>
+                <span>双创基地设备管理系统</span>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn active" data-page="borrow">
+                    <i class="fas fa-plus-circle"></i>
+                    借用登记
+                </button>
+                <button class="nav-btn" data-page="return">
+                    <i class="fas fa-undo"></i>
+                    归还登记
+                </button>
+                <button class="nav-btn" data-page="records">
+                    <i class="fas fa-list"></i>
+                    借还记录
+                </button>
+            </div>
+        </nav>
+
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <!-- 借用登记页面 -->
+            <div id="borrow-page" class="page active">
+                <div class="page-header">
+                    <h2><i class="fas fa-plus-circle"></i> 设备借用登记</h2>
+                    <p>请填写设备借用信息</p>
+                </div>
+                <form id="borrow-form" class="form">
+                    <div class="form-group">
+                        <label for="borrower-name">借用人姓名 *</label>
+                        <input type="text" id="borrower-name" name="borrowerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="borrower-id">学号 *</label>
+                        <input type="text" id="borrower-id" name="borrowerId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="borrower-phone">联系电话 *</label>
+                        <input type="tel" id="borrower-phone" name="borrowerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="borrower-department">部门/班级</label>
+                        <input type="text" id="borrower-department" name="borrowerDepartment">
+                    </div>
+                    <div class="form-group">
+                        <label for="device-name">设备名称 *</label>
+                        <input type="text" id="device-name" name="deviceName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="device-model">设备型号</label>
+                        <input type="text" id="device-model" name="deviceModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="device-serial">设备编号</label>
+                        <input type="text" id="device-serial" name="deviceSerial">
+                    </div>
+                    <div class="form-group">
+                        <label for="borrow-purpose">借用用途 *</label>
+                        <textarea id="borrow-purpose" name="borrowPurpose" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="borrow-date">借用日期 *</label>
+                        <input type="date" id="borrow-date" name="borrowDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expected-return">预计归还日期 *</label>
+                        <input type="date" id="expected-return" name="expectedReturn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="borrow-images">设备图片（借用时）</label>
+                        <div class="image-upload-container">
+                            <input type="file" id="borrow-images" name="borrowImages" accept="image/*" multiple>
+                            <label for="borrow-images" class="image-upload-btn">
+                                <i class="fas fa-camera"></i>
+                                <span>选择图片</span>
+                            </label>
+                            <div class="image-preview-container" id="borrow-image-preview"></div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            提交借用申请
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-undo"></i>
+                            重置表单
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 归还登记页面 -->
+            <div id="return-page" class="page">
+                <div class="page-header">
+                    <h2><i class="fas fa-undo"></i> 设备归还登记</h2>
+                    <p>请填写设备归还信息</p>
+                </div>
+                <form id="return-form" class="form">
+                    <div class="form-group">
+                        <label for="return-borrower-id">学号 *</label>
+                        <input type="text" id="return-borrower-id" name="borrowerId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="return-device-name">设备名称 *</label>
+                        <input type="text" id="return-device-name" name="deviceName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="return-date">归还日期 *</label>
+                        <input type="date" id="return-date" name="returnDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="device-condition">设备状态 *</label>
+                        <select id="device-condition" name="deviceCondition" required>
+                            <option value="">请选择设备状态</option>
+                            <option value="excellent">完好无损</option>
+                            <option value="good">轻微磨损</option>
+                            <option value="damaged">有损坏</option>
+                            <option value="broken">严重损坏</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="return-notes">归还备注</label>
+                        <textarea id="return-notes" name="returnNotes" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="return-images">设备图片（归还时）</label>
+                        <div class="image-upload-container">
+                            <input type="file" id="return-images" name="returnImages" accept="image/*" multiple>
+                            <label for="return-images" class="image-upload-btn">
+                                <i class="fas fa-camera"></i>
+                                <span>选择图片</span>
+                            </label>
+                            <div class="image-preview-container" id="return-image-preview"></div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-check"></i>
+                            确认归还
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-undo"></i>
+                            重置表单
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 借还记录页面 -->
+            <div id="records-page" class="page">
+                <div class="page-header">
+                    <h2><i class="fas fa-list"></i> 借还记录</h2>
+                    <p>查看所有设备的借用和归还记录</p>
+                </div>
+                <div class="records-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input" placeholder="搜索借用人、设备名称或学号...">
+                    </div>
+                    <div class="filter-controls">
+                        <select id="status-filter">
+                            <option value="">所有状态</option>
+                            <option value="borrowed">已借用</option>
+                            <option value="returned">已归还</option>
+                        </select>
+                        <button id="export-btn" class="btn btn-outline" title="左键：导出CSV | 右键：更多选项">
+                            <i class="fas fa-download"></i>
+                            导出数据
+                        </button>
+                    </div>
+                </div>
+                <div class="records-table-container">
+                    <table class="records-table">
+                        <thead>
+                            <tr>
+                                <th>借用人</th>
+                                <th>学号</th>
+                                <th>设备名称</th>
+                                <th>借用日期</th>
+                                <th>预计归还</th>
+                                <th>实际归还</th>
+                                <th>状态</th>
+                                <th>图片</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="records-tbody">
+                            <!-- 记录将通过JavaScript动态添加 -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="no-records" class="no-records">
+                    <i class="fas fa-inbox"></i>
+                    <p>暂无借还记录</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 成功提示模态框 -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle"></i>
+                <h3>操作成功</h3>
+            </div>
+            <div class="modal-body">
+                <p id="success-message">操作已完成</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片查看器模态框 -->
+    <div id="image-viewer-modal" class="image-viewer-modal">
+        <div class="image-viewer-content">
+            <span class="image-viewer-close" onclick="closeImageViewer()">&times;</span>
+            <div class="image-viewer-nav image-viewer-prev" onclick="previousImage()">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="image-viewer-nav image-viewer-next" onclick="nextImage()">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <img id="viewer-image" src="" alt="设备图片">
+            <div class="image-viewer-counter">
+                <span id="image-counter">1 / 1</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
